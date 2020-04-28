@@ -2,8 +2,8 @@ import applySfFxMiddleware from './sfmiddleware';
 import { buildCloudevent } from './localPayload';
 import {Logger, LoggerLevel } from '@salesforce/core';
 
-async function constructLocal(customPayload: string): Promise<Array<any>>{
-    const ce = await buildCloudevent(customPayload, undefined, true);
+async function constructLocal(userPayload: string): Promise<Array<any>>{
+    const ce = await buildCloudevent(userPayload, undefined, true);
     const input = {
         payload: Object.assign({}, ce.spec.payload),
         headers: {}
