@@ -1,10 +1,10 @@
 {
-  "name": "j-q-locall-test-function",
+  "name": "local-function-test",
   "version": "0.0.1",
   "author": "TODO",
   "description": "TODO",
   "license": "UNLICENSED",
-  "main": "dist/index.js",
+  "main": "dist/localTestInvoker.js",
   "repository": {
     "type": "git"
   },
