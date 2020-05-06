@@ -1,18 +1,15 @@
-import * as fs from 'fs';
 import {LoggerLevel} from '@salesforce/core';
 import {
     ConnectionConfig,
     Constants,
     Context,
     DataApi,
-    ErrorResult,
     InvocationEvent,
     Logger,
     Org,
     Secrets,
-    SObject,
-    SuccessResult,
     UnitOfWork,
+    UnitOfWorkGraph,
     User,
 } from '@salesforce/salesforce-sdk';
 
@@ -87,6 +84,7 @@ function createOrg(logger: Logger, reqContext: any, accessToken?: string): Org {
     // If accessToken was provided, setup APIs.
     let dataApi: DataApi | undefined;
     let unitOfWork: UnitOfWork | undefined;
+    let unitOfWorkGraph: UnitOfWorkGraph | undefined;
     if (accessToken) {
         const config: ConnectionConfig = new ConnectionConfig(
             accessToken,
@@ -94,6 +92,7 @@ function createOrg(logger: Logger, reqContext: any, accessToken?: string): Org {
             userContext.salesforceBaseUrl
         );
         unitOfWork = new UnitOfWork(config, logger);
+        unitOfWorkGraph = new UnitOfWorkGraph(config, logger);
         dataApi = new DataApi(config, logger);
     }
 
@@ -104,7 +103,8 @@ function createOrg(logger: Logger, reqContext: any, accessToken?: string): Org {
         userContext.orgId,
         user,
         dataApi,
-        unitOfWork
+        unitOfWork,
+        unitOfWorkGraph
     );
 }
 
